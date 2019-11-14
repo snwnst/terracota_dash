@@ -27,7 +27,7 @@ export class AppService {
             this.azurems.loginPopup(["user.read"]).then(loginResponse => {
                 this.setSession("true");
                 this.setisTerra("true");
-                this.repo.post("Account/V1/GenerateNewToken", {username: this.azurems.getUser()["displayableId"]}, "Generando conexión segura", "Espere un momento").then(response => {
+                this.repo.post("Account/V1/GenerateNewToken", { username: this.azurems.getUser()["displayableId"] }, "Generando conexión segura", "Espere un momento").then(response => {
                     sessionStorage.setItem("token", response.token)
                     this.session = true
                 })
@@ -42,6 +42,12 @@ export class AppService {
         }
     }
 
+    public logout(): void {
+        sessionStorage.clear()
+        this.isTerra = false
+        window.location.href = '/dashboard';
+    }
+
     public getStatusSession(): void {
         this.repo.get("Account/V1/GetStatusSession", null, "Validando sesión", "Espere un momento").then(response => {
             if (response == "ERROR") {
@@ -49,17 +55,17 @@ export class AppService {
                 sessionStorage.clear()
                 if (this.isTerra) {
                     window.location.href = '/dashboard';
-                }        
+                }
             }
         })
     }
 
-    public setSession(data){
+    public setSession(data) {
         sessionStorage.setItem("session", data)
         this.session = JSON.parse(sessionStorage.getItem("session"));
     }
 
-    public setisTerra(data){
+    public setisTerra(data) {
         sessionStorage.setItem("isTerra", data)
         this.isTerra = JSON.parse(sessionStorage.getItem("isTerra"));
     }

@@ -16,6 +16,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'aeropuerto',     component: AeropuertoComponent },
     { path: 'busqueda',       component: BusquedaComponent },
     { path: 'generacion',     component: GeneracionComponent },
-    { path: 'paneladmin',           component: PaneladminComponent },
-    { path: 'notificaciones',  component: NotificacionesComponent },
+    { path: 'paneladmin',     component: PaneladminComponent },
+    { path: 'notificaciones', component: NotificacionesComponent }
 ];

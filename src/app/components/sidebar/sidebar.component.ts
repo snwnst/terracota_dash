@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'app/app.services';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -26,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(public aps: AppService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -37,4 +38,12 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
+  islogout(data){
+    if (data == "/logout") {
+      this.aps.logout()
+      
+    }
+    
+  }
 }
