@@ -30,6 +30,7 @@ export class AppService {
                 this.repo.post("Account/V1/GenerateNewToken", { username: this.azurems.getUser()["displayableId"] }, "Generando conexión segura", "Espere un momento").then(response => {
                     sessionStorage.setItem("token", response.token)
                     this.session = true
+                    this.router.navigate(["/dashboard"])
                 })
             }).catch(function (error) {
                 console.log(error);
@@ -38,6 +39,7 @@ export class AppService {
             this.repo.post("Account/V1/Login", data, "Iniciando sesión", "Espere un momento").then(response => {
                 sessionStorage.setItem("token", response.token)
                 this.session = true
+                this.router.navigate(["/dashboard"])
             })
         }
     }
@@ -45,7 +47,7 @@ export class AppService {
     public logout(): void {
         sessionStorage.clear()
         this.isTerra = false
-        window.location.href = '/dashboard';
+        window.location.href = '/login';
     }
 
     public getStatusSession(): void {
@@ -54,7 +56,7 @@ export class AppService {
                 this.session = false
                 sessionStorage.clear()
                 if (this.isTerra) {
-                    window.location.href = '/dashboard';
+                    window.location.href = '/login';
                 }
             }
         })

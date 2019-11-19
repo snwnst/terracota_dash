@@ -17,5 +17,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'busqueda',       component: BusquedaComponent },
     { path: 'generacion',     component: GeneracionComponent },
     { path: 'paneladmin',     component: PaneladminComponent },
-    { path: 'notificaciones', component: NotificacionesComponent }
+    { path: 'notificaciones', component: NotificacionesComponent },
+    { path: 'login' }
 ];
