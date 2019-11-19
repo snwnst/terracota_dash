@@ -1,18 +1,23 @@
-<div class="page-header login-page header-filter" filter-color="black"
+<div class="login-page" filter-color="black"
   style="background-image: url('./assets/img/login.jpg'); background-size: cover; background-position: top center;">
   <div class="container">
     <div class="row">
+
       <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+        <div class="row">
+          <img src="./assets/img/logo.png" width="50%" height="50%" srcset="">
+          <img src="./assets/img/tecmoin-logo.png" width="50%" height="50%" srcset="">
+        </div>
         <form action="" class="form ng-untouched ng-pristine ng-valid" method="" novalidate="">
           <div class="card card-login">
             <div class="card-header card-header-rose text-center">
-              <h4 class="card-title">Iniciar sesión</h4>
-              <button class="btn btn-primary mat-raised-button" mat-raised-button="" (click)="aps.login(null,true)">
+
+              <button class="btn btn-rose mat-raised-button" mat-raised-button="" (click)="aps.login(null,true)">
                 <span class="mat-button-wrapper">Acceso a internos</span>
                 <div class="mat-button-ripple mat-ripple" matripple=""></div>
                 <div class="mat-button-focus-overlay"></div>
               </button>
-              
+
             </div>
             <div class="card-body ">
               <p class="card-description text-center">Acceso a externos</p><span class="bmd-form-group">
@@ -37,9 +42,17 @@
                 </div>
               </span>
             </div>
-            <div class="card-footer justify-content-center"><a class="btn btn-rose btn-link btn-lg" href="#pablo">Iniciar Sesión</a></div>
+            <div class="card-footer justify-content-center"><a class="btn btn-rose btn-link btn-lg"
+                href="#pablo">Iniciar Sesión</a></div>
           </div>
         </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-md-12 col-sm-12 ml-auto mr-auto" style="text-align: center;color: white;">
+        <p style="width: 100%;">Administradora de Activos Terracota, S.A. de C.V. Copyright © 2013 - {{year_now}}.
+          Derechos
+          reservados.</p>
       </div>
     </div>
   </div>
