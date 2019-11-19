@@ -24,8 +24,8 @@ import 'hammerjs';
 
 export function getBaseUrlCan() {
   if (environment.production) 
-    return 'http://167.172.216.50:81/api'
-  else return 'http://167.172.216.50:81/api'
+    return 'http://167.172.216.50:82/'
+  else return 'http://167.172.216.50:82/'
 }
 
 if (environment.production) {
