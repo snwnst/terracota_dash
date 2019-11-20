@@ -37,7 +37,7 @@ import { LoginComponent } from './login/login.component';
       authority: "https://login.microsoftonline.com/f16b2572-4288-49c1-9ddf-f34041095764",
       popUp: true,
       consentScopes: ["user.read"]
-  })
+    }),
   ],
   declarations: [
     AppComponent,
@@ -45,6 +45,8 @@ import { LoginComponent } from './login/login.component';
     LoginComponent
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports:[
+  ]
 })
 export class AppModule { }

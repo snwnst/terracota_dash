@@ -10,8 +10,7 @@ export class AppComponent {
   constructor(
     private service: AppService
   ) {
-    //this.service.login({username:"nmartinez",password:"TerraNM14.#"});
-    //this.service.getStatusSession();
+    this.service.getStatusSession();
   }
 
   

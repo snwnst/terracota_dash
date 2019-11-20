@@ -1,5 +1,43 @@
 <div class="main-content">
   <div class="container-fluid">
-    MONITOREO
+    <div class="col-lg-12 col-md-12">
+      <div class="card">
+        <div class="card-header card-header-tabs card-header-rose">
+          <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper"><span class="nav-tabs-title">Menu:</span>
+              <ul class="nav nav-tabs" data-tabs="tabs">
+                <li class="nav-item" (click)="resumen()">
+                  <a class="nav-link" data-toggle="tab" href="#resumen" >
+                    <i class="material-icons">bug_report</i>
+                    Resumen
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane" id="resumen">
+              <table class="table">
+                <tbody>
+                  <tr *ngFor="let item of aps.metricsClean | async">
+                    {{item.usuario}}
+                    <td *ngFor="let subitem of item.listaprosesos | slice:0:10;">
+                      <tr>{{subitem.nombre }}</tr>
+                      <tr>{{subitem.tiempoTotal}}</tr>
+                    </td>
+                  
+                    
+                  </tr>
+ 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

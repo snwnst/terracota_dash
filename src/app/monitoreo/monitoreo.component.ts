@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MsalService } from '@azure/msal-angular';
+import { AppService } from 'app/app.services';
+
+
 
 @Component({
   selector: 'app-monitoreo',
@@ -7,10 +9,25 @@ import { MsalService } from '@azure/msal-angular';
   styleUrls: ['./monitoreo.component.scss']
 })
 export class MonitoreoComponent implements OnInit {
+  
 
-  constructor(private ms: MsalService) { }
+  constructor(
+    private aps: AppService,
+   ) { 
+    this.aps.getMetricsClean()
+     
+     
+    
+  }
 
   ngOnInit() {
+
+    
   }
+
+  resumen() {
+    this.aps.metricsClean.subscribe(data => console.log(data))
+  }
+
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRepository } from './app.repository';
 import { MsalService } from '@azure/msal-angular';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,8 @@ export class AppService {
 
     public session: Boolean
     public isTerra: boolean
+
+    public metricsClean:Observable<any[]>;
 
     constructor(
         private repo: AppRepository,
@@ -52,7 +55,15 @@ export class AppService {
                 if (this.isTerra) {
                     window.location.href = '/login';
                 }
+            }else{
+                this.session = true
             }
+        })
+    }
+
+    public getMetricsClean(): any {
+        return this.repo.get("smu/metricasclean", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
+            this.metricsClean = Observable.of(response)
         })
     }
 
