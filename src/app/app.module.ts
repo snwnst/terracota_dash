@@ -34,7 +34,7 @@ import { LoginComponent } from './login/login.component';
       apiKey: ''
     }),
     MsalModule.forRoot({
-      clientID: '336d61a8-9421-467e-b1e5-cafcc6f90c4f',
+      clientID: '5a5b7f9f-9c02-430a-83c3-96fe1b137fcb',
       authority: "https://login.microsoftonline.com/f16b2572-4288-49c1-9ddf-f34041095764",
       popUp: true,
       consentScopes: ["user.read"]
