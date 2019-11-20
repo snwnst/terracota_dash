@@ -15,13 +15,10 @@ export class MonitoreoComponent implements OnInit {
     private aps: AppService,
    ) { 
     this.aps.getMetricsClean()
-     
-     
-    
   }
 
   ngOnInit() {
-    this.aps.metricsClean.subscribe(data=>console.log(data))
+   
   }
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'app/app.services';
 
 @Component({
   selector: 'app-aeropuerto',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AeropuertoComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private aps: AppService,
+   ) { 
+    this.aps.getAeropuetoCompromisos()
+  }
 
   ngOnInit() {
+
   }
+
+
 
 }

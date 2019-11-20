@@ -14,6 +14,7 @@ export class AppService {
     public isTerra: boolean
 
     public metricsClean:Observable<any[]>;
+    public data_aeropuerto_compromisos:Observable<any[]>;
 
     constructor(
         private repo: AppRepository,
@@ -64,6 +65,14 @@ export class AppService {
     public getMetricsClean(): any {
         return this.repo.get("smu/metricasclean", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
             this.metricsClean = Observable.of(response)
+        })
+    }
+
+    public getAeropuetoCompromisos(): any {
+        return this.repo.get("smu/aeropuerto/getdocs/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
+            this.data_aeropuerto_compromisos = Observable.of(response)
+            console.log(response);
+            
         })
     }
 

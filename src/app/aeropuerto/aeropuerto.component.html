@@ -13,8 +13,7 @@
               </div>
               <div class="card-body">
                 <div class="row">
-
-                  <div class="col-lg-8 col-md-8">
+                  <div class="col-lg-12 col-md-12">
                     <div class="card">
                       <div class="card-header card-header-success">
                         <h3 class="card-title">Historico</h3>
@@ -27,23 +26,26 @@
                             <th>fecha de entrega</th>
                             <th>en_orden/atrazado/rechazado/completado</th>
                             <th>detalles</th>
+                            <th>acciones</th>
                           </thead>
                           <tbody>
                             <tr>
                               <td>semanal</td>
                               <td>15-10-2019</td>
                               <td>Rechazado</td>
-                              <td>Ver detalles</td>
+                              <td>detalles</td>
+                              <td>
+                                <input class="btn btn-rose btn-round btn-file" type="file">
+                              </td>
                             </tr>
-
                           </tbody>
                         </table>
                       </div>
                     </div>
-
                   </div>
                   <div class="col-md-4 ml-auto mr-auto">
-                    PANEL SUBIR ARCHIVOS
+
+
                   </div>
 
                 </div>
@@ -52,7 +54,95 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Configuración"> Con </mat-tab>
+      <mat-tab label="Configuración">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons"></i>
+                </div>
+                <h4 class="card-title">Compromiso de archivos</h4>
+                <button mat-icon-button color="primary" (click)="aps.getAeropuetoCompromisos()">
+                  <mat-icon>autorenew</mat-icon>
+                </button>
+                <button mat-icon-button color="primary">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <mat-accordion>
+                      <mat-expansion-panel *ngFor="let item of aps.data_aeropuerto_compromisos | async">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            {{item.usuario}}
+                          </mat-panel-title>
+                          <mat-panel-description>
+                            {{item.email}}
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <button mat-icon-button color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <div class="card-body table-responsive">
+                          <table class="table table-hover">
+                            <thead class="text-success">
+                              <th>Titulo</th>
+                              <th>Descripcion</th>
+                              <th>tipo</th>
+                              <th>Periodos de entrega</th>
+                              <th><button mat-icon-button color="primary">
+                                  <mat-icon>add</mat-icon>
+                                </button></th>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let ac of item.archivos_comprometidos">
+                                <td>{{ac.titulo}}</td>
+                                <td>{{ac.descripcion}}</td>
+                                <td>{{ac.tipo}}</td>
+                                <td>
+                              <tr *ngFor="let pe of ac.periodos_entrega">
+                                <td>{{pe.periodo}}-{{pe.dia}}</td>
+                                <td>desde: {{pe.fecha_inicio}}</td>
+                              </tr>
+                              </td>
+                              <td>
+                                <button mat-icon-button color="primary">
+                                  <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn">
+                                  <mat-icon>delete</mat-icon>
+                                </button>
+                              </td>
+
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                  <div class="col-md-4 ml-auto mr-auto">
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </mat-tab>
     </mat-tab-group>
 
   </div>
