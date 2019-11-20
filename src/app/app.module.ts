@@ -30,14 +30,14 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+      apiKey: ''
     }),
     MsalModule.forRoot({
       clientID: '336d61a8-9421-467e-b1e5-cafcc6f90c4f',
       authority: "https://login.microsoftonline.com/f16b2572-4288-49c1-9ddf-f34041095764",
       popUp: true,
       consentScopes: ["user.read"]
-    }),
+    })
   ],
   declarations: [
     AppComponent,
@@ -46,7 +46,6 @@ import { LoginComponent } from './login/login.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports:[
-  ]
+  exports:[]
 })
 export class AppModule { }

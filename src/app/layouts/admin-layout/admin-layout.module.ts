@@ -20,6 +20,7 @@ import { BusquedaComponent } from 'app/busqueda/busqueda.component';
 import { GeneracionComponent } from 'app/generacion/generacion.component';
 import { PaneladminComponent } from 'app/paneladmin/paneladmin.component';
 import { NotificacionesComponent } from 'app/notificaciones/notificaciones.component';
+import { MaterialModule } from 'app/material-module';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { NotificacionesComponent } from 'app/notificaciones/notificaciones.compo
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MaterialModule,
   ],
   declarations: [
     DashboardComponent,

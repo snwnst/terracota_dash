@@ -21,13 +21,10 @@ export class MonitoreoComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    
+    this.aps.metricsClean.subscribe(data=>console.log(data))
   }
 
-  resumen() {
-    this.aps.metricsClean.subscribe(data => console.log(data))
-  }
+
 
 
 }

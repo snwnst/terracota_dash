@@ -1,43 +1,56 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="col-lg-12 col-md-12">
-      <div class="card">
-        <div class="card-header card-header-tabs card-header-rose">
-          <div class="nav-tabs-navigation">
-            <div class="nav-tabs-wrapper"><span class="nav-tabs-title">Menu:</span>
-              <ul class="nav nav-tabs" data-tabs="tabs">
-                <li class="nav-item" (click)="resumen()">
-                  <a class="nav-link" data-toggle="tab" href="#resumen" >
-                    <i class="material-icons">bug_report</i>
-                    Resumen
-                    <div class="ripple-container"></div>
-                  </a>
-                </li>
-              </ul>
+
+    <mat-tab-group>
+      <mat-tab label="Resumen">
+        <div class="row">
+          <div class="container-fluid">
+            <button class="btn btn-info btn-round mat-raised-button" (click)="aps.getMetricsClean()">
+              <span class="mat-button-wrapper"><i class="material-icons">autorenew</i> Recargar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4" *ngFor="let item of aps.metricsClean | async">
+            <div class="card">
+              <div class="card-header card-header-warning" data-header-animation="true">
+                <h3 class="card-title">{{item.usuario}}</h3>
+                <p class="card-category">Ultimas 5 aplicaciones usadas en los ultimos 5 minutos</p>
+              </div>
+              <div class="card-body table-responsive">
+                <table class="table table-hover">
+                  <thead class="text-warning">
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let subitem of item.listaprosesos | slice:0:5;">
+                      <td>{{subitem.nombre }}</td>
+                      <td>{{subitem.tiempoTotal}}</td>
+                      <td> En Uso </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="card-footer">
+                <div class="price">
+                  <h4>....</h4>
+                </div>
+                <div class="stats">
+                  <p class="card-category"><i class="material-icons">alarm</i>Tiempo Total de uso del equipo</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="tab-content">
-            <div class="tab-pane" id="resumen">
-              <table class="table">
-                <tbody>
-                  <tr *ngFor="let item of aps.metricsClean | async">
-                    {{item.usuario}}
-                    <td *ngFor="let subitem of item.listaprosesos | slice:0:10;">
-                      <tr>{{subitem.nombre }}</tr>
-                      <tr>{{subitem.tiempoTotal}}</tr>
-                    </td>
-                  
-                    
-                  </tr>
- 
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+
+      </mat-tab>
+
+    </mat-tab-group>
   </div>
 </div>
