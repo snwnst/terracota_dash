@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AppRepository } from './app.repository';
 import { MsalService } from '@azure/msal-angular';
 import { Observable } from 'rxjs';
+import { Terra_aeropuerto } from './app.model';
 
 @Injectable({
     providedIn: 'root'
@@ -11,41 +12,31 @@ import { Observable } from 'rxjs';
 export class AppService {
 
     public session: Boolean
-    public isTerra: boolean
 
-    public metricsClean:Observable<any[]>;
-    public data_aeropuerto_compromisos:Observable<any[]>;
+    public metricsClean: Observable<any[]>;
+    public data_aeropuerto_compromisos: Observable<Terra_aeropuerto[]>;
+
+    public usuarios: Observable<any[]>;
 
     constructor(
         private repo: AppRepository,
-        private router: Router,
-        private azurems: MsalService
+        private router: Router
     ) {
         this.session = JSON.parse(sessionStorage.getItem("session"));
-        this.isTerra = JSON.parse(sessionStorage.getItem("isTerra"));
     }
 
-    public login(data, isTerra): void {
-        this.isTerra = isTerra;
-        if (this.isTerra) {
-            this.azurems.loginPopup(["user.read"]).then(loginResponse => {
-                this.setSession("true");
-                this.setIsTerra("true");
-                this.repo.post("sag/Account/V1/GenerateNewToken", { username: this.azurems.getUser()["displayableId"] }, "Generando conexión segura", "Espere un momento").then(response => {
-                    sessionStorage.setItem("token", response.token)
-                    this.session = true
-                    this.router.navigate(["/dashboard"])
-                })
-            }).catch(function (error) {
-                console.log(error);
-            });
-        } else {
-            this.repo.post("sag/Account/V1/Login", data, "Iniciando sesión", "Espere un momento").then(response => {
+    public login(data): void {
+        this.repo.post("sag/Account/V1/Login", data, "Iniciando sesión", "Espere un momento").then(response => {
+
+            if (response == "ERROR") {
+                this.session = false
+                sessionStorage.clear()
+            } else {
                 sessionStorage.setItem("token", response.token)
                 this.session = true
                 this.router.navigate(["/dashboard"])
-            })
-        }
+            }
+        })
     }
 
     public getStatusSession(): void {
@@ -53,17 +44,20 @@ export class AppService {
             if (response == "ERROR") {
                 this.session = false
                 sessionStorage.clear()
-                if (this.isTerra) {
-                    window.location.href = '/login';
-                }
-            }else{
+            } else {
                 this.session = true
             }
         })
     }
 
+    public getUsers(): void {
+        this.repo.get("sag/User/V1", null, "Obteniendo usuarios ", "Espere un momento").then(response => {
+            console.log(response);
+        })
+    }
+
     public getMetricsClean(): any {
-        return this.repo.get("smu/metricasclean", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
+        return this.repo.get("smu/metricas/metricasclean/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
             this.metricsClean = Observable.of(response)
         })
     }
@@ -71,25 +65,13 @@ export class AppService {
     public getAeropuetoCompromisos(): any {
         return this.repo.get("smu/aeropuerto/getdocs/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
             this.data_aeropuerto_compromisos = Observable.of(response)
-            console.log(response);
-            
         })
     }
 
     public logout(): void {
         sessionStorage.clear()
-        this.isTerra = false
-        window.location.href = '/login';
+        this.session = false
     }
 
-    public setSession(data) {
-        sessionStorage.setItem("session", data)
-        this.session = JSON.parse(sessionStorage.getItem("session"));
-    }
-
-    public setIsTerra(data) {
-        sessionStorage.setItem("isTerra", data)
-        this.isTerra = JSON.parse(sessionStorage.getItem("isTerra"));
-    }
 
 }

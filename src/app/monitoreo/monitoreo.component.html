@@ -2,22 +2,24 @@
   <div class="container-fluid">
 
     <mat-tab-group>
-      <mat-tab label="Resumen">
-        <div class="row">
-          <div class="container-fluid">
-            <button class="btn btn-info btn-round mat-raised-button" (click)="aps.getMetricsClean()">
-              <span class="mat-button-wrapper"><i class="material-icons">autorenew</i> Recargar</span>
-            </button>
-          </div>
-        </div>
+      <mat-tab label="Resumen Hoy">
 
         <div class="row">
-          <div class="col-lg-4 col-md-4" *ngFor="let item of aps.metricsClean | async">
-            <div class="card">
-              <div class="card-header card-header-warning" data-header-animation="true">
-                <h3 class="card-title">{{item.usuario}}</h3>
-                <p class="card-category">Ultimas 5 aplicaciones usadas en los ultimos 5 minutos</p>
-              </div>
+
+          <mat-accordion class="col-lg-4 col-md-4">
+            <button mat-button (click)="aps.getMetricsClean()" style="width: 100%;">
+              <mat-icon>autorenew</mat-icon> Aplicaiones usadas en este momento
+            </button>
+            <mat-expansion-panel *ngFor="let item of aps.metricsClean | async">
+              <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                  {{item.usuario}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{item.tiempoUsoGlobal}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
               <div class="card-body table-responsive">
                 <table class="table table-hover">
                   <thead class="text-warning">
@@ -26,7 +28,7 @@
                     <th>Status</th>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let subitem of item.listaprosesos | slice:0:5;">
+                    <tr *ngFor="let subitem of item.listaprosesos">
                       <td>{{subitem.nombre }}</td>
                       <td>{{subitem.tiempoTotal}}</td>
                       <td> En Uso </td>
@@ -34,20 +36,20 @@
 
                   </tbody>
                 </table>
+
               </div>
 
-              <div class="card-footer">
-                <div class="price">
-                  <h4>{{item.tiempoUsoGlobal}}</h4>
-                </div>
-                <div class="stats">
-                  <p class="card-category"><i class="material-icons">alarm</i>Tiempo Total de uso del equipo</p>
-                </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+
+              <div class="col-lg-8 col-md-8">
+                <canvas baseChart [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels"
+                  [chartType]="radarChartType">
+                </canvas>
               </div>
-            </div>
-          </div>
+
         </div>
-
 
       </mat-tab>
 

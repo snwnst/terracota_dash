@@ -4,48 +4,54 @@
     <div class="row">
 
       <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
-        <div class="row">
-          <img src="./assets/img/logo.png" width="50%" height="50%" srcset="">
-          <img src="./assets/img/tecmoin-logo.png" width="50%" height="50%" srcset="">
-        </div>
+       
         <form action="" class="form ng-untouched ng-pristine ng-valid" method="" novalidate="">
           <div class="card card-login">
-            <div class="card-header card-header-rose text-center">
+            <mat-card class="box mat-elevation-z16">
 
-              <button class="btn btn-rose mat-raised-button" mat-raised-button="" (click)="aps.login(null,true)">
-                <span class="mat-button-wrapper">Acceso a internos</span>
-                <div class="mat-button-ripple mat-ripple" matripple=""></div>
-                <div class="mat-button-focus-overlay"></div>
-              </button>
+              <mat-card-header>
 
-            </div>
-            <div class="card-body ">
-              <p class="card-description text-center">Acceso a externos</p><span class="bmd-form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend"><span class="input-group-text"><i
-                        class="material-icons">face</i></span></div><input class="form-control" placeholder="usuario..."
-                    type="text">
+              </mat-card-header>
+
+              <mat-card-content>
+                <div class="from-container">
+                  <mat-form-field [formGroup]="loginform">
+                    <span matPrefix>
+                      <mat-icon matTooltip="primera sección de e-mail o usuario asignado">person</mat-icon> &nbsp;
+                    </span>
+                    <input type="text" matInput placeholder="Usuario" formControlName="username">
+                  </mat-form-field>
+
+                  <mat-form-field [formGroup]="loginform">
+                    <span matPrefix>
+                      <mat-icon>https</mat-icon> &nbsp;
+                    </span>
+
+                    <input [type]="password_type" matInput placeholder="Contraseña" formControlName="password"
+                      (keyup.enter)="login()">
+
+                    <button mat-button matSuffix (click)="showVisibilitPassword()">
+                      <mat-icon matTooltip="Mostrar contraseña" *ngIf="visibility_icon">visibility</mat-icon>
+                      <mat-icon matTooltip="Ocultar contraseña" *ngIf="!visibility_icon">visibility_off</mat-icon>
+                    </button>
+
+                  </mat-form-field>
                 </div>
-              </span>
-              <!--<span class="bmd-form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend"><span class="input-group-text"><i
-                        class="material-icons">email</i></span></div><input class="form-control" placeholder="Email..."
-                    type="email">
-                </div>
-              </span>-->
-              <span class="bmd-form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend"><span class="input-group-text"><i
-                        class="material-icons">lock_outline</i></span></div><input class="form-control"
-                    placeholder="contraseña..." type="password">
-                </div>
-              </span>
-            </div>
-            <div class="card-footer justify-content-center"><a class="btn btn-rose btn-link btn-lg"
-                href="#pablo">Iniciar Sesión</a></div>
+
+              </mat-card-content>
+
+              <mat-card-actions align="end">
+                <button mat-raised-button color="primary" (click)="login()"
+                  [disabled]="loginform.status == 'INVALID'">Iniciar sesión</button>
+              </mat-card-actions>
+
+            </mat-card>
           </div>
         </form>
+        <div class="row">
+            <img src="./assets/img/logo.png" width="50%" height="50%" srcset="">
+            <img src="./assets/img/tecmoin-logo.png" width="50%" height="50%" srcset="">
+          </div>
       </div>
     </div>
     <div class="row">

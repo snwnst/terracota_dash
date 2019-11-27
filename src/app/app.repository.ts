@@ -63,15 +63,11 @@ export class AppRepository {
     }
 
     private swalError(error) {
-        if (error.status != 401) {
-            Swal.fire({
-                icon: 'error',
-                title: error.statusText,
-                text: error.message
-            })  
-        }else{
-            Swal.close()
-        }
+        Swal.fire({
+            icon: 'error',
+            title: error.statusText,
+            text: error.message
+        })
     }
 
 

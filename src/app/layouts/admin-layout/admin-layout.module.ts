@@ -13,6 +13,7 @@ import {
   MatSelectModule
 } from '@angular/material';
 
+
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { MonitoreoComponent } from 'app/monitoreo/monitoreo.component';
 import { AeropuertoComponent } from 'app/aeropuerto/aeropuerto.component';
@@ -21,6 +22,7 @@ import { GeneracionComponent } from 'app/generacion/generacion.component';
 import { PaneladminComponent } from 'app/paneladmin/paneladmin.component';
 import { NotificacionesComponent } from 'app/notificaciones/notificaciones.component';
 import { MaterialModule } from 'app/material-module';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -35,6 +37,7 @@ import { MaterialModule } from 'app/material-module';
     MatSelectModule,
     MatTooltipModule,
     MaterialModule,
+    ChartsModule
   ],
   declarations: [
     DashboardComponent,

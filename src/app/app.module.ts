@@ -19,6 +19,7 @@ import {
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { MaterialModule } from './material-module';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { LoginComponent } from './login/login.component';
       authority: "https://login.microsoftonline.com/f16b2572-4288-49c1-9ddf-f34041095764",
       popUp: true,
       consentScopes: ["user.read"]
-    })
+    }),
+    MaterialModule,
   ],
   declarations: [
     AppComponent,

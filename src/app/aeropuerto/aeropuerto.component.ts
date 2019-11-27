@@ -12,6 +12,7 @@ export class AeropuertoComponent implements OnInit {
     private aps: AppService,
    ) { 
     this.aps.getAeropuetoCompromisos()
+    this.aps.getUsers()
   }
 
   ngOnInit() {
