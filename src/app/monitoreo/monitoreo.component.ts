@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from 'app/app.services';
-import { RadialChartOptions, ChartDataSets, ChartType } from 'chart.js';
-import { Label } from 'ng2-charts';
-
-
 
 @Component({
   selector: 'app-monitoreo',
@@ -12,33 +8,36 @@ import { Label } from 'ng2-charts';
 })
 export class MonitoreoComponent implements OnInit {
 
-  public radarChartOptions: RadialChartOptions = {
-    responsive: true,
-  };
-  public radarChartLabels: Label[] = ['WINWORD', 'OUTLOOK', 'ONEDRIVE', 'EXCEL', 'NAVEGADORES', 'POWERP', 'OTROS'];
+  public chart = {
+    type: "radar",
+    labels: ["NAVEGADORES", "WINWORD", "EXCEL", "ONEDRIVE", "TEAMS", "OUTLOOK", "POWERPNT", "OTROS"],
+    data: [
+      {
+        data: [9.53, 3.12, 3.66, 5.59, 2.38, 3.28, 0.02, 0.34],
+        label: "5:47:40 en uso"
+      }
+    ],
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1
+      }
 
-  public radarChartData: ChartDataSets[] = [
-    { data: [10,20,30,40,50,60,70], label: 'Series A' },
-  ];
-  public radarChartType: ChartType = 'radar';
-
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+    }
   }
 
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-  
   constructor(
     private aps: AppService,
-   ) { 
+  ) {
     this.aps.getMetricsClean()
+    this.aps.getMetricshistorico()
+
+
   }
 
   ngOnInit() {
-   
+    console.log(this.aps.metricas_historico);
+
   }
 
 

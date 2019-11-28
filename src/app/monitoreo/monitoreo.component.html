@@ -8,7 +8,7 @@
 
           <mat-accordion class="col-lg-4 col-md-4">
             <button mat-button (click)="aps.getMetricsClean()" style="width: 100%;">
-              <mat-icon>autorenew</mat-icon> Aplicaiones usadas en este momento
+              <mat-icon>autorenew</mat-icon><span> Aplicaiones usadas en este momento</span>
             </button>
             <mat-expansion-panel *ngFor="let item of aps.metricsClean | async">
               <mat-expansion-panel-header class="right-aligned-header">
@@ -16,7 +16,7 @@
                   {{item.usuario}}
                 </mat-panel-title>
                 <mat-panel-description>
-                  {{item.tiempoUsoGlobal}}
+                  {{item.tiempoTotal}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
 
@@ -28,7 +28,7 @@
                     <th>Status</th>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let subitem of item.listaprosesos">
+                    <tr *ngFor="let subitem of item.historico">
                       <td>{{subitem.nombre }}</td>
                       <td>{{subitem.tiempoTotal}}</td>
                       <td> En Uso </td>
@@ -43,11 +43,40 @@
             </mat-expansion-panel>
           </mat-accordion>
 
-              <div class="col-lg-8 col-md-8">
-                <canvas baseChart [datasets]="radarChartData" [options]="radarChartOptions" [labels]="radarChartLabels"
-                  [chartType]="radarChartType">
-                </canvas>
+          <div class="col-lg-8 col-md-8">
+            <div class="card card-stats">
+              <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                   
+                  <i >
+                      <mat-icon>timeline</mat-icon>
+                  </i>
+                </div>
+
+                <h4 class="card-title">Porcentaje de uso sobre aplicaciomes en lo que lleva el dia</h4>
+                <p class="card-category">No registra ventanas unicamente abiertas</p>
               </div>
+              <div class="card-body">
+                  <canvas baseChart [datasets]="aps.metricsCleanchart.data" [options]="aps.metricsCleanchart.options"
+                  [labels]="aps.metricsCleanchart.labels" [chartType]="aps.metricsCleanchart.type"></canvas>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">update</i> Just Updated
+                </div>
+              </div>
+            </div>
+           
+          </div>
+
+        </div>
+
+      </mat-tab>
+
+      <mat-tab label="Resumen Historico">
+
+        <div class="row">
+
 
         </div>
 
