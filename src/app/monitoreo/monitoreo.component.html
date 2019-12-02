@@ -6,7 +6,7 @@
 
         <div class="row">
 
-          <mat-accordion class="col-lg-4 col-md-4">
+          <mat-accordion class="col-lg-6 col-md-6">
             <button mat-button (click)="aps.getMetricsClean()" style="width: 100%;">
               <mat-icon>autorenew</mat-icon><span> Aplicaiones usadas en este momento</span>
             </button>
@@ -43,7 +43,7 @@
             </mat-expansion-panel>
           </mat-accordion>
 
-          <div class="col-lg-8 col-md-8">
+          <div class="col-lg-6 col-md-6">
             <div class="card card-stats">
               <div class="card-header card-header-info card-header-icon">
                 <div class="card-icon">
@@ -53,12 +53,17 @@
                   </i>
                 </div>
 
-                <h4 class="card-title">Porcentaje de uso sobre aplicaciomes en lo que lleva el dia</h4>
+                <h4 class="card-title">Uso de aplicaciomes / hoy</h4>
                 <p class="card-category">No registra ventanas unicamente abiertas</p>
               </div>
               <div class="card-body">
-                  <canvas baseChart [datasets]="aps.metricsCleanchart.data" [options]="aps.metricsCleanchart.options"
-                  [labels]="aps.metricsCleanchart.labels" [chartType]="aps.metricsCleanchart.type"></canvas>
+                <div *ngFor="let chart of aps.metricsCleanchart | async">
+                    <canvas style="width: 100%;" baseChart [datasets]="chart.data" [options]="chart.options"
+                    [labels]="chart.labels" [chartType]="chart.type"></canvas>
+                </div>
+                  
+
+
               </div>
               <div class="card-footer">
                 <div class="stats">

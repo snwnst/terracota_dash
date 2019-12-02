@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRepository } from './app.repository';
-import { MsalService } from '@azure/msal-angular';
 import { Observable } from 'rxjs';
 import { Terra_aeropuerto } from './app.model';
 
@@ -14,7 +13,7 @@ export class AppService {
     public session: Boolean
 
     public metricsClean: Observable<any[]>;
-    public metricsCleanchart: any;
+    public metricsCleanchart: Observable<any[]>;
     public metricas_historico: Observable<any[]>;
     
     public data_aeropuerto_compromisos: Observable<Terra_aeropuerto[]>;
@@ -64,8 +63,8 @@ export class AppService {
     public getMetricsClean(): any {
         return this.repo.get("smu/metricas/metricasclean/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
             this.metricsClean = Observable.of(response.users)
-            this.metricsCleanchart = response.chart
-            console.log(response.chart);
+            this.metricsCleanchart = Observable.of(response.charts)
+            console.log(response);
             
         })
     }
