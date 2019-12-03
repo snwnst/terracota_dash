@@ -1,69 +1,60 @@
 <div class="main-content">
   <div class="container-fluid">
-
     <mat-tab-group>
       <mat-tab label="Resumen Hoy">
-
         <div class="row">
-
-          <mat-accordion class="col-lg-6 col-md-6">
-            <button mat-button (click)="aps.getMetricsClean()" style="width: 100%;">
-              <mat-icon>autorenew</mat-icon><span> Aplicaiones usadas en este momento</span>
-            </button>
-            <mat-expansion-panel *ngFor="let item of aps.metricsClean | async">
-              <mat-expansion-panel-header class="right-aligned-header">
-                <mat-panel-title>
-                  {{item.usuario}}
-                </mat-panel-title>
-                <mat-panel-description>
-                  {{item.tiempoTotal}}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              <div class="card-body table-responsive">
-                <table class="table table-hover">
-                  <thead class="text-warning">
-                    <th>Name</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let subitem of item.historico">
-                      <td>{{subitem.nombre }}</td>
-                      <td>{{subitem.tiempoTotal}}</td>
-                      <td> En Uso </td>
-                    </tr>
-
-                  </tbody>
-                </table>
-
-              </div>
-
-
-            </mat-expansion-panel>
-          </mat-accordion>
-
-          <div class="col-lg-6 col-md-6">
+          <mat-accordion class="col-lg-12 col-md-12">
             <div class="card card-stats">
               <div class="card-header card-header-info card-header-icon">
                 <div class="card-icon">
-                   
-                  <i >
-                      <mat-icon>timeline</mat-icon>
+                  <i>
+                    <mat-icon>timeline</mat-icon>
                   </i>
                 </div>
-
                 <h4 class="card-title">Uso de aplicaciomes / hoy</h4>
                 <p class="card-category">No registra ventanas unicamente abiertas</p>
               </div>
               <div class="card-body">
-                <div *ngFor="let chart of aps.metricsCleanchart | async">
-                    <canvas style="width: 100%;" baseChart [datasets]="chart.data" [options]="chart.options"
-                    [labels]="chart.labels" [chartType]="chart.type"></canvas>
+                <div class="row">
+                  <div class="col-lg-6 col-md-6">
+                    <button mat-button (click)="aps.getMetricsClean()" style="width: 100%;">
+                      <mat-icon>autorenew</mat-icon><span> Aplicaiones usadas en este momento</span>
+                    </button>
+                    <mat-expansion-panel *ngFor="let item of aps.metricsClean | async">
+                      <mat-expansion-panel-header class="right-aligned-header">
+                        <mat-panel-title>
+                          {{item.usuario}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          {{item.tiempoTotal}}
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+
+                      <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                          <thead class="text-warning">
+                            <th>Name</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let subitem of item.historico">
+                              <td>{{subitem.nombre }}</td>
+                              <td>{{subitem.tiempoTotal}}</td>
+                              <td> En Uso </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </mat-expansion-panel>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <div *ngFor="let chart of aps.metricsCleanchart | async">
+                      <canvas style="width: 100%;" baseChart [datasets]="chart.data" [options]="chart.options"
+                        [labels]="chart.labels" [chartType]="chart.type"></canvas>
+                    </div>
+                  </div>
                 </div>
-                  
-
-
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -71,20 +62,60 @@
                 </div>
               </div>
             </div>
-           
-          </div>
-
+          </mat-accordion>
         </div>
-
       </mat-tab>
 
       <mat-tab label="Resumen Historico">
-
         <div class="row">
+          <div class="col-md-4">
+            <div class="card ">
+              <div class="card-header card-header-rose card-header-icon">
+                <div class="card-icon"><i class="material-icons">contacts</i></div>
+                <h4 class="card-title">Busqueda personalizada</h4>
+              </div>
+              <div class="card-body ">
+
+                <div class="from-container">
+                  <mat-form-field [formGroup]="mbpform">
+                    <input matInput [matDatepicker]="finicio" formControlName="finicio" placeholder="Fecha de Inicio">
+                    <mat-datepicker-toggle matSuffix [for]="finicio"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #finicio></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field [formGroup]="mbpform">
+                    <input matInput [matDatepicker]="ffinal" formControlName="ffinal" placeholder="Fecha de fin">
+                    <mat-datepicker-toggle matSuffix [for]="ffinal"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #ffinal></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field [formGroup]="mbpform">
+                    <mat-label>Toppings</mat-label>
+                    <mat-select formControlName="usuarios" multiple>
+                      <mat-option *ngFor="let item of aps.metricsClean | async" [value]="item.usuario">{{item.usuario}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+
+                </div>
+
+              </div>
+              <div class="card-footer ">
+                <div class="row">
+                  <div class="col-md-9">
+                    <button class="btn btn-fill btn-rose mat-raised-button" (click)="search()"  [disabled]="mbpform.status == 'INVALID'"><span
+                        class="mat-button-wrapper">Buscar</span>
+                      <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                      <div class="mat-button-focus-overlay"></div>
+                    </button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
 
         </div>
-
       </mat-tab>
 
     </mat-tab-group>

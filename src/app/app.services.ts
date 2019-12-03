@@ -15,8 +15,11 @@ export class AppService {
     public metricsClean: Observable<any[]>;
     public metricsCleanchart: Observable<any[]>;
     public metricas_historico: Observable<any[]>;
+
+    public users:Observable<any[]>;
     
     public data_aeropuerto_compromisos: Observable<Terra_aeropuerto[]>;
+
 
     public usuarios: Observable<any[]>;
 
@@ -56,7 +59,7 @@ export class AppService {
 
     public getUsers(): void {
         this.repo.get("sag/User/V1", null, "Obteniendo usuarios ", "Espere un momento").then(response => {
-            console.log(response);
+            this.users = Observable.of(response);
         })
     }
 
@@ -72,6 +75,13 @@ export class AppService {
     public getMetricshistorico(): any {
         return this.repo.get("smu/metricas/historico/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
             this.metricas_historico = Observable.of(response)
+        })
+    }
+
+    public getMetricsPesonalizado(data): any {
+        return this.repo.post("smu/metricas/personalizado/", data, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
+            console.log(response);
+            
         })
     }
 

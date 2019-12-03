@@ -53,3 +53,16 @@ export class Login {
     public password: string;
 }
 
+export class MonitoreoBP {
+    constructor(object?) {
+        object = object || {};
+        this.finicio = object.finicio || new Date;
+        this.finicio = object.finicio || new Date;
+        this.finicio = object.usuarios || [];
+    }
+    
+    public finicio: Date;
+    public ffinal: Date;
+    public usuarios: [string]
+}
+
