@@ -12,9 +12,8 @@ export class AppService {
 
     public session: Boolean
 
-    public metricsClean: Observable<any[]>;
-    public metricsCleanchart: Observable<any[]>;
-    public metricas_historico: Observable<any[]>;
+    public resumenaplicativosdiario: Observable<any[]>;
+    public radc: Observable<any[]>;
 
     public users:Observable<any[]>;
     
@@ -64,23 +63,22 @@ export class AppService {
     }
 
     public getMetricsClean(): any {
-        return this.repo.get("smu/metricas/metricasclean/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
-            this.metricsClean = Observable.of(response.users)
-            this.metricsCleanchart = Observable.of(response.charts)
+        return this.repo.get("smu/metricas/resumenaplicativosdiario/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
+            this.resumenaplicativosdiario =  Observable.of(response);
             console.log(response);
             
         })
     }
 
-    public getMetricshistorico(): any {
-        return this.repo.get("smu/metricas/historico/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
-            this.metricas_historico = Observable.of(response)
+    public getMetricsCleanCahrt(): any {
+        return this.repo.get("smu/metricas/resumenaplicativosdiariochart/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
+           this.radc = Observable.of(response);
         })
     }
 
     public getMetricsPesonalizado(data): any {
         return this.repo.post("smu/metricas/personalizado/", data, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
-            console.log(response);
+            console.log(response)
             
         })
     }
