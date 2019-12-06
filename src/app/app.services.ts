@@ -14,6 +14,9 @@ export class AppService {
 
     public resumenaplicativosdiario: Observable<any[]>;
     public radc: Observable<any[]>;
+    public radp: Observable<any[]>;
+    public allnow: Observable<any[]>;
+    public indicadores: Observable<any[]>;
 
     public users:Observable<any[]>;
     
@@ -65,14 +68,32 @@ export class AppService {
     public getMetricsClean(): any {
         return this.repo.get("smu/metricas/resumenaplicativosdiario/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
             this.resumenaplicativosdiario =  Observable.of(response);
-            console.log(response);
-            
         })
     }
 
     public getMetricsCleanCahrt(): any {
         return this.repo.get("smu/metricas/resumenaplicativosdiariochart/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
            this.radc = Observable.of(response);
+        })
+    }
+
+    public getMetricsCleanPie(): any {
+        return this.repo.get("smu/metricas/resumenaplicativosdiariochartpie/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
+           this.radp = Observable.of(response);
+        })
+    }
+
+    public getMetricsCleanAll(): any {
+        return this.repo.get("smu/metricas/allnow/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
+           this.allnow = Observable.of(response);
+           console.log(response);
+           
+        })
+    }
+
+    public getIndicadores(): any {
+        return this.repo.get("smu/metricas/getindicadores/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
+           this.indicadores = Observable.of(response);       
         })
     }
 
