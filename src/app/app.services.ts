@@ -11,6 +11,8 @@ import { Terra_aeropuerto } from './app.model';
 export class AppService {
 
     public session: Boolean
+    public monit: Boolean
+
 
     public resumenaplicativosdiario: Observable<any[]>;
     public radc: Observable<any[]>;
@@ -30,7 +32,7 @@ export class AppService {
         private router: Router
     ) {
         this.session = JSON.parse(sessionStorage.getItem("session"));
-
+        this.monit = false;
 
     }
 

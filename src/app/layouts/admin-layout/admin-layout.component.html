@@ -1,5 +1,5 @@
 
-<div class="wrapper" *ngIf="aps.session">
+<div class="wrapper" *ngIf="aps.session && !aps.monit">
     <div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
@@ -85,3 +85,7 @@
 <!-- Buy-Modal-angular -->
 
 <app-login *ngIf="!aps.session"></app-login>
+
+<div class="wrapper" *ngIf="aps.session && aps.monit">
+    <router-outlet></router-outlet>
+</div>

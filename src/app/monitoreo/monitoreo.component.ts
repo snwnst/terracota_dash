@@ -36,6 +36,10 @@ export class MonitoreoComponent implements OnInit {
     });
   }
 
+  changemonit(){
+    this.aps.monit = !this.aps.monit
+  }
+
   search() {
     if (!this.mbpform.value.ffinal) {
       this.mbpform.value.ffinal = this.mbpform.value.finicio
@@ -64,6 +68,8 @@ export class MonitoreoComponent implements OnInit {
         return `card-header card-header-info card-header-icon`
       case "ONEDRIVE":
         return `card-header card-header-primary card-header-icon`
+      case "CODE":
+        return `card-header card-header-info card-header-icon`
       default:
         return `card-header card-header-danger card-header-icon`
     }
@@ -87,6 +93,8 @@ export class MonitoreoComponent implements OnInit {
         return `fas fa-comment-dots`
       case "ONEDRIVE":
         return `fas fa-cloud-upload-alt`
+      case "CODE":
+        return `fas fa-code`
       default:
         return `fas fa-desktop`
     }
