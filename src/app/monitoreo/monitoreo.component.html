@@ -1,9 +1,15 @@
-<div class="main-content">
+<div class="main-content" id="monitoreo_stilo" >
   <div class="container-fluid">
-    <mat-slide-toggle [checked]="aps.monit" (change)="changemonit()">
-      Pantalla grande
-    </mat-slide-toggle>
-
+    <div class="row">
+      <mat-slide-toggle class="col-lg-3 col-md-3 col-sm-3" [checked]="aps.monit" (change)="changemonit()">
+        Pantalla grande
+      </mat-slide-toggle>
+      <mat-slide-toggle class="col-lg-3 col-md-3 col-sm-3" (change)="modoOscuro($event)">
+        Modo obscuro
+      </mat-slide-toggle>
+      
+    </div>
+    
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card">
@@ -13,29 +19,27 @@
           </div>
           <div class="card-body">
             <mat-tab-group>
-              <mat-tab label="{{item.titulo}}" *ngFor="let item of aps.resumenaplicativosdiario | async">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h2 class="card-title"> {{item.tTotal}} EN USO PROMEDIO</h2>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let app of item.apps">
-                    <div class="card card-stats">
-                      <div [class]="getClas(app.nombre)">
-                        <div class="card-icon"><i [class]="getIcon(app.nombre)"></i>
+              <mat-tab label="APLICAIONES">
+                <div *ngFor="let item of aps.resumenaplicativosdiario | async">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3" *ngFor="let app of item.apps">
+                      <div class="card card-stats">
+                        <div [class]="getClas(app.nombre)">
+                          <div class="card-icon"><i [class]="getIcon(app.nombre)"></i>
+                          </div>
+                          <p class="card-category">{{app.nombre}}</p>
+                          <h3 class="card-title">+{{app.tiempoPromedio}}</h3>
                         </div>
-                        <p class="card-category">{{app.nombre}}</p>
-                        <h3 class="card-title">+{{app.tiempoPromedio}}</h3>
-                      </div>
-                      <div class="card-footer">
-                        <div class="stats"><i class="material-icons">update</i>
-                          Just Updated </div>
+                        <div class="card-footer">
+                          <div class="stats">
+                            <p class="col-lg-6 col-md-6 col-sm-6" *ngFor="let spa of app.mayormenor"> {{spa}}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-
                 </div>
+
               </mat-tab>
 
               <mat-tab label="RESUMEN">
@@ -89,13 +93,53 @@
 
             </mat-tab-group>
 
-
-
           </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 rowgraf">
+                <mat-accordion>
+                  <mat-expansion-panel *ngFor="let allnow_item of aps.allnow | async">
+                    <mat-expansion-panel-header class="right-aligned-header">
+                      <mat-panel-title>
+                        {{allnow_item.usuario}}
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        {{allnow_item.tTotal}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
 
+                    <table class="table table-hover">
+                      <thead class="text-warning">
+                        <th>APLICACION</th>
+                        <th>TIEMPO</th>
+
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let his of allnow_item.historico">
+                          <td>{{his.nombre}}</td>
+                          <td>{{his.tiempoTotal}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let radp_item of aps.radp | async">
+                <canvas baseChart [datasets]="radp_item.data" [labels]="radp_item.labels" [options]="radp_item.options"
+                  [chartType]="radp_item.type"></canvas>
+              </div>
+            </div>
+          </div>
+          
 
         </div>
-        <img class="col-lg-12 col-md-12 col-sm-12" src="/assets/img/m1.png" >
+
+
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6">
@@ -114,71 +158,15 @@
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="stats"><i class="material-icons">update</i>
-              Just Updated </div>
-          </div>
         </div>
-        <div class="card ">
 
-          <div class="card-body">
-            <mat-tab-group>
-              <mat-tab label="{{indicador.anio}}" *ngFor="let indicador of aps.indicadores | async">
-                <mat-tab-group>
-                  <mat-tab label="{{periodo.periodo}}" *ngFor="let periodo of indicador.periodos">
-
-                    <mat-tab-group>
-
-                      <mat-tab label="INGRESOS DEL PERIODO">
-                        <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let ig of periodo.i_general">
-                            <div class="card ">
-                              <div [class]="ig.class">
-                                <div class="card-icon"><i [class]="ig.icon"></i></div>
-                                <h3 class="card-title">{{ig.value}}</h3>
-                                <p class="card-category">{{ig.tittle}}</p>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-
-                      </mat-tab>
-                      <mat-tab label="INGRESOS POR LINEA">
-
-                        <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let ig of periodo.i_lineag">
-                            <div class="card">
-                              <div [class]="ig.class">
-                                <div class="card-icon"><i [class]="ig.icon"></i></div>
-                                <h3 class="card-title">{{ig.value}}</h3>
-                                <p class="card-category">{{ig.tittle}}</p>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-
-
-
-                      </mat-tab>
-
-                      <mat-tab label="% BURSAS">
-                        <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let gchart of periodo.charts">
-                          <canvas baseChart [datasets]="gchart.data" [labels]="gchart.labels"
-                            [chartType]="gchart.type"></canvas>
-                        </div>
-
-                      </mat-tab>
-
-                    </mat-tab-group>
-
-                  </mat-tab>
-                </mat-tab-group>
-              </mat-tab>
-            </mat-tab-group>
-          </div>
+        <img class="col-lg-12 col-md-12 col-sm-12" src="/assets/img/m1.png">
+        <div class="row">
+          <img class="col-md-6" src="/assets/img/m2.jpg" style="height: 300px;">
+          <img class="col-md-6" src="/assets/img/m3.jpg" style="height: 300px;">
         </div>
+
+
       </div>
     </div>
 

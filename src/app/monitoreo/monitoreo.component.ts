@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AppService } from 'app/app.services';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MonitoreoBP } from 'app/app.model';
@@ -12,13 +12,14 @@ export class MonitoreoComponent implements OnInit {
 
   public mbpform: FormGroup;
   public mbpdata: MonitoreoBP;
-
-  public data = {'type': 'pie', 'labels': ['OFMATICA', 'APLICATIVOS', 'NAVEGADORES', 'OTROS', 'SIN/USO'], 'data': [{'data': [10.0, 16.0, 25.0, 17.0, 32.0],'label':'%'}], 'options': {'responsive': true}}
+  public modo: string;
 
   constructor(
     private aps: AppService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private renderer: Renderer2
   ) {
+    this.modo = "";
     this.aps.getMetricsCleanAll()
     this.aps.getMetricsCleanPie()
     this.aps.getMetricsClean()
@@ -38,6 +39,26 @@ export class MonitoreoComponent implements OnInit {
 
   changemonit(){
     this.aps.monit = !this.aps.monit
+  }
+
+  modoOscuro(event){
+    const parent: HTMLElement = document.getElementById('monitoreo_stilo');
+    const child = parent.children[0];
+    
+
+
+    if(event.checked){
+      this.renderer.setStyle(child, 'filter', 'invert(100%)');
+      this.renderer.setStyle(child, 'background-color', 'white');
+    }   
+    else{
+      this.renderer.setStyle(child, 'filter', '');
+      this.renderer.setStyle(child, 'background-color', '');
+
+    }
+
+
+    
   }
 
   search() {
