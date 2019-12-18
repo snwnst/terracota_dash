@@ -35,13 +35,28 @@ export class MonitoreoComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.mbpdata = new MonitoreoBP();
     this.mbpform = this.formBuilder.group({
       finicio: [this.mbpdata.finicio, [Validators.required]],
       ffinal: [this.mbpdata.ffinal],
       usuarios: [this.mbpdata.usuarios]
     });
+
+    do {
+      this.aps.getMetricsCleanAll()
+      this.aps.getMetricsCleanPie()
+      this.aps.getMetricsClean()
+      this.aps.getMetricsCleanCahrt()
+      this.aps.getIndicadores()
+      await this.sleep(300000);
+    } while (this.aps.monit);
+
+
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   changemonit() {
