@@ -14,6 +14,13 @@ export class MonitoreoComponent implements OnInit {
   public mbpdata: MonitoreoBP;
   public modo: string;
 
+  public chart = [{ 
+    "type": "doughnut", 
+    "labels": ["OFMATICA", "APLICATIVOS", "NAVEGADORES"],
+    "data": [{ "data": [350, 450, 100] }], 
+    "options": { "responsive": true } 
+  }]
+
   constructor(
     private aps: AppService,
     public formBuilder: FormBuilder,
@@ -26,7 +33,7 @@ export class MonitoreoComponent implements OnInit {
     this.aps.getMetricsCleanCahrt()
     this.aps.getIndicadores()
 
-  } 
+  }
 
   ngOnInit() {
     this.mbpdata = new MonitoreoBP();
@@ -37,28 +44,22 @@ export class MonitoreoComponent implements OnInit {
     });
   }
 
-  changemonit(){
+  changemonit() {
     this.aps.monit = !this.aps.monit
   }
 
-  modoOscuro(event){
+  modoOscuro(event) {
     const parent: HTMLElement = document.getElementById('monitoreo_stilo');
     const child = parent.children[0];
-    
-
-
-    if(event.checked){
+    if (event.checked) {
       this.renderer.setStyle(child, 'filter', 'invert(100%)');
       this.renderer.setStyle(child, 'background-color', 'white');
-    }   
-    else{
+    }
+    else {
       this.renderer.setStyle(child, 'filter', '');
       this.renderer.setStyle(child, 'background-color', '');
-
     }
 
-
-    
   }
 
   search() {
