@@ -67,7 +67,7 @@ export class MonitoreoComponent implements OnInit {
     const parent: HTMLElement = document.getElementById('monitoreo_stilo');
     const child = parent.children[0];
     if (event.checked) {
-      this.renderer.setStyle(child, 'filter', 'invert(100%)');
+      this.renderer.setStyle(child, 'filter', 'invert(100%)'); 
       this.renderer.setStyle(child, 'background-color', 'white');
     }
     else {
