@@ -68,7 +68,7 @@ export class AppService {
     }
 
     public getMetricsClean(): any {
-        return this.repo.get("smu/metricas/resumenaplicativosdiario/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
+        return this.repo.get("smu/metricas/resumenactividadesdiario/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
             this.resumenaplicativosdiario =  Observable.of(response);
         })
     }
