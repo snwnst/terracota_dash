@@ -1,4 +1,4 @@
-<div class="main-content" id="monitoreo_stilo" >
+<div class="main-content" id="monitoreo_stilo">
   <div class="container-fluid">
     <div class="row">
       <mat-slide-toggle class="col-lg-3 col-md-3 col-sm-3" [checked]="aps.monit" (change)="changemonit()">
@@ -7,9 +7,9 @@
       <mat-slide-toggle class="col-lg-3 col-md-3 col-sm-3" (change)="modoOscuro($event)">
         Modo obscuro
       </mat-slide-toggle>
-      
+
     </div>
-    
+
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card">
@@ -21,8 +21,8 @@
             <mat-tab-group>
               <mat-tab label="APLICAIONES">
                 <div *ngFor="let item of aps.resumenaplicativosdiario | async">
-                  <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3" *ngFor="let app of item.apps">
+                  <div class="row" *ngIf="item.apps">
+                    <div class="col-lg-4 col-md-4 col-sm-4" *ngFor="let app of item.apps">
                       <div class="card card-stats">
                         <div [class]="getClas(app.nombre)">
                           <div class="card-icon"><i [class]="getIcon(app.nombre)"></i>
@@ -37,57 +37,65 @@
                         </div>
                       </div>
                     </div>
+
                   </div>
+
+                  <div class="row" *ngIf="item.nombre == 'NAVEGADORES'">
+                    <div class="col-lg-6 col-md-6 col-sm-6" >
+                      <div class="card card-stats">
+                        <div [class]="getClas(item.nombre)">
+                          <div class="card-icon"><i [class]="getIcon(item.nombre)"></i>
+                          </div>
+                          <p class="card-category">{{item.nombre}}</p>
+                          <h3 class="card-title">+{{item.tiempoPromedio}}</h3>
+                        </div>
+                        <div class="card-body">
+
+                          <table class="table table-hover">
+                            <thead class="text-warning">
+                              <th>PESTAÑA</th>
+                              <th>USUARIO</th>
+                              <th>TIEMPO</th>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let pestania of item.pestanias | slice:0:5;">
+                                <td>{{pestania.title}}</td>
+                                <td>{{pestania.host}}</td>
+                                <td>{{pestania.tiempoTotal}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                       
+                 
+                         
+                   
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let radp_item of aps.radp | async">
+                      <canvas baseChart [datasets]="radp_item.data" [labels]="radp_item.labels" [options]="radp_item.options"
+                        [chartType]="radp_item.type"></canvas>
+                    </div>
+                  </div>
+
                 </div>
 
-              </mat-tab>
 
-              <mat-tab label="RESUMEN">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h2 class="card-title"> % EN USO PROMEDIO</h2>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let radp_item of aps.radp | async">
-                    <canvas baseChart [datasets]="radp_item.data" [labels]="radp_item.labels"
-                      [options]="radp_item.options" [chartType]="radp_item.type"></canvas>
-                  </div>
-                </div>
+
               </mat-tab>
 
               <mat-tab label="USUARIOS">
-                <div class="container">
-                  <mat-accordion>
-                    <mat-expansion-panel *ngFor="let allnow_item of aps.allnow | async">
-                      <mat-expansion-panel-header class="right-aligned-header">
-                        <mat-panel-title>
-                          {{allnow_item.usuario}}
-                        </mat-panel-title>
-                        <mat-panel-description>
-                          {{allnow_item.tTotal}}
-                        </mat-panel-description>
-                      </mat-expansion-panel-header>
-
-                      <table class="table table-hover">
-                        <thead class="text-warning">
-                          <th>APLICACION</th>
-                          <th>TIEMPO</th>
-
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let his of allnow_item.historico">
-                            <td>{{his.nombre}}</td>
-                            <td>{{his.tiempoTotal}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-
-
-                    </mat-expansion-panel>
-                  </mat-accordion>
-                </div>
-
+                <table class="table table-hover">
+                  <tbody>
+                    <tr *ngFor="let allnow_item of aps.allnow | async">
+                      <td>{{allnow_item.usuario}}</td>
+                      <td>
+                       <a href="{{allnow_item.historico}}" target="_blank"> Ir a portal individual de metricas </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+   
               </mat-tab>
 
 
@@ -95,22 +103,6 @@
 
           </div>
         </div>
-        
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              
-              <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let radp_item of aps.radp | async">
-                <canvas baseChart [datasets]="radp_item.data" [labels]="radp_item.labels" [options]="radp_item.options"
-                  [chartType]="radp_item.type"></canvas>
-              </div>
-            </div>
-          </div>
-          
-
-        </div>
-
-
       </div>
 
       <div class="col-lg-6 col-md-6 col-sm-6">

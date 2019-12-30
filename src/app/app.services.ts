@@ -70,23 +70,25 @@ export class AppService {
     public getMetricsClean(): any {
         return this.repo.get("smu/metricas/resumenactividadesdiario/", null, "Obteniendo datos sobre pc's", "Espere un momento").then(response => {
             this.resumenaplicativosdiario =  Observable.of(response);
+            console.log(response);
+            
         })
     }
 
     public getMetricsCleanCahrt(): any {
-        return this.repo.get("smu/metricas/resumenaplicativosdiariochart/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
+        return this.repo.get("smu/metricas/resumenactividadesdiariochart/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
            this.radc = Observable.of(response);
         })
     }
 
     public getMetricsCleanPie(): any {
-        return this.repo.get("smu/metricas/resumenaplicativosdiariochartpie/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
+        return this.repo.get("smu/metricas/resumenaactividadesdiariochartpie/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
            this.radp = Observable.of(response);
         })
     }
 
     public getMetricsCleanAll(): any {
-        return this.repo.get("smu/metricas/allnow/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
+        return this.repo.get("smu/metricas/allnowactividades/", null, "Obteniendo datos historicos sobre pc's", "Espere un momento").then(response => {
            this.allnow = Observable.of(response);
            console.log(response);
            
